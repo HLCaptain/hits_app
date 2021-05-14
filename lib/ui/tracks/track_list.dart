@@ -7,13 +7,21 @@ import 'package:hits_app/ui/tracks/track_list_event.dart';
 import 'package:hits_app/ui/tracks/track_list_state.dart';
 import 'package:hits_app/utils.dart';
 
-class TrackListPage extends StatelessWidget {
+class TrackListPage extends StatefulWidget {
+  const TrackListPage({required Key key}) : super(key: key);
+
+  @override
+  _TrackListPageState createState() => _TrackListPageState();
+}
+
+class _TrackListPageState extends State<TrackListPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Hits"),
+        title: Text(
+            "TODO: CHANGE THIS TEXT"
+        ),
       ),
       body: BlocProvider(
         create: (context) => injector<TrackListBloc>(),
@@ -45,6 +53,9 @@ class TrackListPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class TrackListLoading extends StatelessWidget {

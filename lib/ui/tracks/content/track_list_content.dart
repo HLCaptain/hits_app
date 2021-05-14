@@ -9,6 +9,8 @@ import '../track_list_bloc.dart';
 import '../track_list_event.dart';
 import '../track_list_state.dart';
 
+String currentTrack = "";
+
 class TrackListContent extends StatefulWidget {
   final Content state;
 
@@ -49,151 +51,94 @@ class _TrackListContentState extends State<TrackListContent> {
           itemBuilder: (context, index) {
             final item = state.tracks[index];
             return InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    HOME_PAGE,
-                    arguments: item.id,
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(12, 4, 12, 4),
-                  padding: EdgeInsets.zero,
-                  //height: 72,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 240, 240, 240),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: ListTile(
-                      minVerticalPadding: 0,
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: item.imagePath != null ? CachedNetworkImage(
-                            imageUrl: item.imagePath!,
-                            height: 72,
-                            width: 72,
-                          ) : Icon(
-                            Icons.image,
-                            size: 80,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        item.name!,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  item.artistName!,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+              onTap: () {
+                currentTrack = item.id!;
+                Navigator.pushNamed(
+                  context,
+                  MUSIC_PLAYER_PAGE,
+                  arguments: item.id,
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.fromLTRB(12, 4, 12, 4),
+                padding: EdgeInsets.zero,
+                //height: 72,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  //color: Color.fromARGB(255, 240, 240, 240),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: ListTile(
+                    minVerticalPadding: 0,
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: item.imagePath != null
+                            ? CachedNetworkImage(
+                                imageUrl: item.imagePath!,
+                                height: 72,
+                                width: 72,
+                              )
+                            : Icon(
+                                Icons.image,
+                                size: 80,
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      trailing: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.chevron_right,
-                            size: 20,
-                          ),
-                          // Icon(
-                          //   Icons.access_time_rounded,
-                          //   size: 15,
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4.0),
-                            child: Text(
-                              (item.playbackSeconds! / 60).floor().toString() +
-                                  ":" +
-                                  ((item.playbackSeconds! % 60 < 10)
-                                          ? ("0" +
-                                              (item.playbackSeconds! % 60)
-                                                  .toString())
-                                          : item.playbackSeconds! % 60)
-                                      .toString(),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
+                    title: Text(
+                      item.name!,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                item.artistName!,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    trailing: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.chevron_right,
+                          size: 20,
+                        ),
+                        // Icon(
+                        //   Icons.access_time_rounded,
+                        //   size: 15,
+                        // ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: Text(
+                            (item.playbackSeconds! / 60).floor().toString() +
+                                ":" +
+                                ((item.playbackSeconds! % 60 < 10)
+                                        ? ("0" +
+                                            (item.playbackSeconds! % 60)
+                                                .toString())
+                                        : item.playbackSeconds! % 60)
+                                    .toString(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                )
-                // child: ListTile(
-                //   leading: item.imagePath != null
-                //       ? CachedNetworkImage(
-                //     imageUrl: item.imagePath!,
-                //     height: 40,
-                //     width: 40,
-                //   )
-                //       : Icon(
-                //     Icons.image,
-                //     size: 40,
-                //   ),
-                //   title: Text(
-                //     item.name!,
-                //     overflow: TextOverflow.ellipsis,
-                //   ),
-                //   subtitle: Column(
-                //     mainAxisSize: MainAxisSize.min,
-                //     children: [
-                //       Row(
-                //         mainAxisAlignment: MainAxisAlignment.start,
-                //         children: [
-                //           Flexible(
-                //             child: Text(
-                //               item.artistName!,
-                //               overflow: TextOverflow.ellipsis,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //       Row(
-                //         mainAxisAlignment: MainAxisAlignment.end,
-                //         children: [
-                //           Icon(
-                //             Icons.calendar_today,
-                //             size: 15,
-                //           ),
-                //           Padding(
-                //             padding: const EdgeInsets.only(left: 4.0),
-                //             child: Text(
-                //               (item.playbackSeconds! / 60).floor().toString()
-                //                   + ":"
-                //                   + ((item.playbackSeconds! % 60 < 10) ?
-                //               ("0" + (item.playbackSeconds! % 60).toString()) :
-                //               item.playbackSeconds! % 60).toString(),
-                //             ),
-                //           ),
-                //         ],
-                //       )
-                //     ],
-                //   ),
-                //   trailing: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Icon(
-                //         Icons.chevron_right,
-                //         size: 20,
-                //       )
-                //     ],
-                //   ),
-                // ),
-                );
+                ),
+              )
+            );
           },
         ),
       ),

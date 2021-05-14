@@ -80,16 +80,6 @@ class MusicPlayer extends StatelessWidget {
                       onPressed: () async {
                         final url = track.previewURL!;
                         await launch(url, forceWebView: true);
-                        // This should be working, but it doesn't.
-                        // if (await canLaunch(url)) {
-                        //   await launch(url);
-                        // } else {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(
-                        //       content: Text("Could not launch ${track.url}"),
-                        //     ),
-                        //   );
-                        // }
                       },
                       child: Text(
                         "OPEN IN BROWSER",
