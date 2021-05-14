@@ -12,7 +12,7 @@ import 'music_player_bloc.dart';
 class MusicPlayer extends StatelessWidget {
   final String trackId;
 
-  MusicPlayer(this.trackId);
+  MusicPlayer(this.trackId, {required Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

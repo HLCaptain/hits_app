@@ -13,23 +13,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentBarIndex = 0;
-  int _currentFakeIndex = 0;
   PageController _pageController = new PageController(
     initialPage: 0,
     keepPage: true,
   );
-  List<Widget> _screens = List.filled(2, Container());
   PageView _pageView = new PageView();
-  List<Widget> _allScreens = [
+  List<Widget> _screens = [
     TrackListPage(key: GlobalKey()),
     PlaylistsPage(key: GlobalKey()),
-    MusicPlayer(currentTrack),
+    MusicPlayer(currentTrack, key: GlobalKey()),
   ];
 
 
   _HomePageState() {
-    _screens[0] = _allScreens[0];
-    _screens[1] = _allScreens[1];
     _pageView = new PageView(
       controller: _pageController,
       children: _screens,
@@ -38,50 +34,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // helps fake screen transitions
-  void updateScreens(int index) {
-    // no changes made to the current screen
-    if (index < _currentBarIndex && _currentFakeIndex == 1) {
-      _screens[0] = _allScreens[index];
-      _currentFakeIndex = 0;
-      _currentBarIndex = index;
-      return;
-    }
-    if (index > _currentBarIndex && _currentFakeIndex == 0) {
-      _screens[1] = _allScreens[index];
-      _currentFakeIndex = 1;
-      _currentBarIndex = index;
-      return;
-    }
-    // flipping screens
-    if (index < _currentBarIndex && _currentFakeIndex == 0) {
-      _screens[1] = _screens[0];
-      _pageController.jumpToPage(1);
-      _screens[0] = _allScreens[index];
-      _currentBarIndex = index;
-      return;
-    }
-    if (index > _currentBarIndex && _currentFakeIndex == 1) {
-      _screens[0] = _screens[1];
-      _pageController.jumpToPage(0);
-      _screens[1] = _allScreens[index];
-      _currentBarIndex = index;
-      return;
-    }
-  }
+
 
   void _tapItem(int index) {
-    updateScreens(index);
     _pageController.animateToPage(
-        _currentFakeIndex,
-        duration: Duration(milliseconds: 100),
-        curve: Curves.easeOutCubic,
+      index,
+      duration: Duration(milliseconds: 100),
+      curve: Curves.easeOutCubic,
     );
   }
 
   void _onPageChanged(int index) {
     setState(() {
-      _currentFakeIndex = index;
+      _currentBarIndex = index;
     });
   }
 
