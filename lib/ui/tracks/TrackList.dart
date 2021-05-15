@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hits_app/di/di_utils.dart';
-import 'package:hits_app/ui/music_player/music_player.dart';
-import 'package:hits_app/ui/tracks/content/track_list_content.dart';
-import 'package:hits_app/ui/tracks/track_list_bloc.dart';
-import 'package:hits_app/ui/tracks/track_list_event.dart';
-import 'package:hits_app/ui/tracks/track_list_state.dart';
+import 'package:hits_app/ui/music_player/MusicPlayer.dart';
+import 'package:hits_app/ui/tracks/content/TrackListContent.dart';
+import 'package:hits_app/ui/tracks/TrackListBloc.dart';
+import 'package:hits_app/ui/tracks/TrackListEvent.dart';
+import 'package:hits_app/ui/tracks/TrackListState.dart';
 import 'package:hits_app/utils.dart';
 
 import '../../main.dart';

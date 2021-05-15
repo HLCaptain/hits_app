@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hits_app/ui/menus/menus.dart';
-import 'package:hits_app/ui/music_player/music_player.dart';
+import 'package:hits_app/ui/menus/PageMenu.dart';
+import 'package:hits_app/ui/music_player/MusicPlayer.dart';
 import 'package:hits_app/ui/playlists/playlists.dart';
 import 'package:hits_app/ui/profile/profile.dart';
-import 'package:hits_app/ui/tracks/content/track_list_content.dart';
-import 'package:hits_app/ui/tracks/track_list.dart';
+import 'package:hits_app/ui/tracks/content/TrackListContent.dart';
+import 'package:hits_app/ui/tracks/TrackList.dart';
 
 const PROFILE_PAGE = "/profile";
 const DEFAULT_PAGE = "/";

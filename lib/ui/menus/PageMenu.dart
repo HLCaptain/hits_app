@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hits_app/ui/music_player/music_player.dart';
+import 'package:hits_app/ui/music_player/MusicPlayer.dart';
 import 'package:hits_app/ui/playlists/playlists.dart';
-import 'package:hits_app/ui/tracks/content/track_list_content.dart';
-import 'package:hits_app/ui/tracks/track_list.dart';
-import 'package:hits_app/ui/home/home_page.dart';
+import 'package:hits_app/ui/tracks/content/TrackListContent.dart';
+import 'package:hits_app/ui/tracks/TrackList.dart';
+import 'package:hits_app/ui/home/HomePage.dart';
 
 class PageMenu extends StatefulWidget {
   const PageMenu({Key? key}) : super(key: key);

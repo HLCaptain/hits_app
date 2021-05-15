@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hits_app/domain/interactor/track_interactor.dart';
-import 'package:hits_app/ui/tracks/track_list_event.dart';
-import 'package:hits_app/ui/tracks/track_list_state.dart';
+import 'package:hits_app/ui/tracks/TrackListEvent.dart';
+import 'package:hits_app/ui/tracks/TrackListState.dart';
 
 class TrackListBloc extends Bloc<TrackListEvent, TrackListState> {
   final TrackInteractor _trackInteractor;

@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hits_app/di/di_utils.dart';
-import 'package:hits_app/ui/music_player/music_player_bloc.dart';
-import 'package:hits_app/ui/music_player/music_player_event.dart';
-import 'package:hits_app/ui/music_player/music_player_state.dart';
+import 'package:hits_app/ui/music_player/MusicPlayerBloc.dart';
+import 'package:hits_app/ui/music_player/MusicPlayerEvent.dart';
+import 'package:hits_app/ui/music_player/MusicPlayerState.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'music_player_bloc.dart';
+import 'MusicPlayerBloc.dart';
 
 class MusicPlayer extends StatelessWidget {
   final String trackId;
@@ -16,11 +17,7 @@ class MusicPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Music details"),
-      ),
-      body: BlocProvider(
+    return BlocProvider(
         create: (context) => injector<MusicPlayerBloc>(),
         child: BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
           builder: (context, state) {
@@ -33,7 +30,13 @@ class MusicPlayer extends StatelessWidget {
             if (state is ContentReady) {
               final track = state.track;
               return Scaffold(
-                extendBodyBehindAppBar: true,
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(0),
+                  child: AppBar(
+                    title: Text("Music details"),
+                    primary: false,
+                  ),
+                ),
                 body: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -88,7 +91,7 @@ class MusicPlayer extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ),
               );
             }
@@ -99,8 +102,7 @@ class MusicPlayer extends StatelessWidget {
               ),
             );
           },
-        ),
-      ),
+        )
     );
   }
 }

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
-import '../track_list_bloc.dart';
-import '../track_list_event.dart';
-import '../track_list_state.dart';
+import '../TrackListBloc.dart';
+import '../TrackListEvent.dart';
+import '../TrackListState.dart';
 
 String currentTrack = "";
 

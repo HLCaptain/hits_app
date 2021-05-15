@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hits_app/domain/interactor/track_interactor.dart';
-import 'music_player_state.dart';
-import 'package:hits_app/ui/music_player/music_player_event.dart';
-import 'package:hits_app/ui/music_player/music_player_state.dart';
-import 'music_player_state.dart';
+import 'MusicPlayerState.dart';
+import 'package:hits_app/ui/music_player/MusicPlayerEvent.dart';
+import 'package:hits_app/ui/music_player/MusicPlayerState.dart';
+import 'MusicPlayerState.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
   final TrackInteractor _trackInteractor;
