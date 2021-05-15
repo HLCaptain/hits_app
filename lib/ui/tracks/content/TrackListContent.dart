@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hits_app/ui/track_card/TrackCard.dart';
 
 import '../../../main.dart';
 import '../TrackListBloc.dart';
@@ -50,95 +51,17 @@ class _TrackListContentState extends State<TrackListContent> {
           padding: EdgeInsets.zero,
           itemCount: state.tracks.length,
           itemBuilder: (context, index) {
-            final item = state.tracks[index];
+            final track = state.tracks[index];
             return InkWell(
               onTap: () {
-                currentTrack = item.id!;
+                currentTrack = track.id!;
                 Navigator.pushNamed(
                   context,
                   MUSIC_PLAYER_PAGE,
-                  arguments: item.id,
+                  arguments: track.id,
                 );
               },
-              child: Container(
-                margin: EdgeInsets.fromLTRB(12, 4, 12, 4),
-                padding: EdgeInsets.zero,
-                //height: 72,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  //color: Color.fromARGB(255, 240, 240, 240),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: ListTile(
-                    minVerticalPadding: 0,
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: item.imagePath != null
-                            ? CachedNetworkImage(
-                                imageUrl: item.imagePath!,
-                                height: 72,
-                                width: 72,
-                              )
-                            : Icon(
-                                Icons.image,
-                                size: 80,
-                              ),
-                      ),
-                    ),
-                    title: Text(
-                      item.name!,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                item.artistName!,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    trailing: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.chevron_right,
-                          size: 20,
-                        ),
-                        // Icon(
-                        //   Icons.access_time_rounded,
-                        //   size: 15,
-                        // ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
-                          child: Text(
-                            (item.playbackSeconds! / 60).floor().toString() +
-                                ":" +
-                                ((item.playbackSeconds! % 60 < 10)
-                                        ? ("0" +
-                                            (item.playbackSeconds! % 60)
-                                                .toString())
-                                        : item.playbackSeconds! % 60)
-                                    .toString(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              child: TrackCard(track: track),
             );
           },
         ),
