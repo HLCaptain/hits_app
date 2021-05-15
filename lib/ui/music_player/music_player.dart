@@ -12,91 +12,94 @@ import 'music_player_bloc.dart';
 class MusicPlayer extends StatelessWidget {
   final String trackId;
 
-  MusicPlayer(this.trackId, {required Key key}) : super(key: key);
+  MusicPlayer(this.trackId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => injector<MusicPlayerBloc>(),
-      child: BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
-        builder: (context, state) {
-          if (state is Loading) {
-            BlocProvider.of<MusicPlayerBloc>(context)
-                .add(LoadTrackEvent(trackId));
-            return TrackDetailsLoading();
-          }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Music details"),
+      ),
+      body: BlocProvider(
+        create: (context) => injector<MusicPlayerBloc>(),
+        child: BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
+          builder: (context, state) {
+            if (state is Loading) {
+              BlocProvider.of<MusicPlayerBloc>(context)
+                  .add(LoadTrackEvent(trackId));
+              return TrackDetailsLoading();
+            }
 
-          if (state is ContentReady) {
-            final track = state.track;
-            return Scaffold(
-              appBar: AppBar(
-                title: Text("Track details"),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    track.imagePath != null
-                        ? CachedNetworkImage(
-                      imageUrl: track.imagePath!,
-                      height: 200,
-                    )
-                        : Icon(
-                      Icons.image,
-                      size: 200,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(track.name!),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(track.artistName!),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.access_time_rounded,
-                            size: 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4.0),
-                            child: Text(
-                              (track.playbackSeconds! / 60).floor().toString()
-                                  + ":"
-                                  + ((track.playbackSeconds! % 60 < 10) ?
-                              ("0" + (track.playbackSeconds! % 60).toString()) :
-                              track.playbackSeconds! % 60).toString(),
+            if (state is ContentReady) {
+              final track = state.track;
+              return Scaffold(
+                extendBodyBehindAppBar: true,
+                body: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      track.imagePath != null
+                          ? CachedNetworkImage(
+                        imageUrl: track.imagePath!,
+                        height: 350,
+                      )
+                          : Icon(
+                        Icons.image,
+                        size: 350,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(track.name!),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(track.artistName!),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.access_time_rounded,
+                              size: 15,
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4.0),
+                              child: Text(
+                                (track.playbackSeconds! / 60).floor().toString()
+                                    + ":"
+                                    + ((track.playbackSeconds! % 60 < 10) ?
+                                ("0" + (track.playbackSeconds! % 60).toString()) :
+                                track.playbackSeconds! % 60).toString(),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final url = track.previewURL!;
-                        await launch(url, forceWebView: true);
-                      },
-                      child: Text(
-                        "OPEN IN BROWSER",
+                      ElevatedButton(
+                        onPressed: () async {
+                          final url = track.previewURL!;
+                          await launch(url, forceWebView: true);
+                        },
+                        child: Text(
+                          "OPEN IN BROWSER",
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+              );
+            }
+
+            return Center(
+              child: Text(
+                "Something went wrong while retrieving Track with id $trackId"
               ),
             );
-          }
-
-          return Center(
-            child: Text(
-              "Something went wrong while retrieving Track with id $trackId"
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }
@@ -106,9 +109,6 @@ class TrackDetailsLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Track details"),
-      ),
       body: Center(
         child: CircularProgressIndicator(),
       ),

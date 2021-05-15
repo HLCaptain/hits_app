@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-class PlaylistsPage extends StatelessWidget {
-  const PlaylistsPage({required Key key}) : super(key: key);
+class PlaylistsPage extends StatefulWidget {
+  const PlaylistsPage({Key? key}) : super(key: key);
 
   @override
+  _PlaylistsPageState createState() => _PlaylistsPageState();
+}
+
+class _PlaylistsPageState extends State<PlaylistsPage> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            "TODO: Playlists Page"
-        ),
-      ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
