@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hits_app/ui/menus/PageMenu.dart';
-import 'package:hits_app/ui/music_player/MusicPlayer.dart';
-import 'package:hits_app/ui/playlists/playlists.dart';
-import 'package:hits_app/ui/profile/profile.dart';
-import 'package:hits_app/ui/tracks/content/TrackListContent.dart';
-import 'package:hits_app/ui/tracks/TrackList.dart';
+import 'package:hits_app/main.dart';
+import 'package:hits_app/ui/profile/ProfilePage.dart';
 
-const PROFILE_PAGE = "/profile";
+
 const DEFAULT_PAGE = "/";
 
 class HomePage extends StatefulWidget {
@@ -17,9 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PageMenu _pageMenu = new PageMenu();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +29,30 @@ class _HomePageState extends State<HomePage> {
             .dark()
             .colorScheme,
       ),
-      home: _pageMenu,
+      home: pageMenu,
       onGenerateRoute: (settings) {
-        Widget widget = _pageMenu;
+        Widget widget = pageMenu;
         final name = settings.name ?? "";
         if (name.startsWith(PROFILE_PAGE)) {
           widget = ProfilePage();
         }
+        if (name.startsWith(AUTH_PAGE)) {
+          return MaterialPageRoute(
+              builder: (context) {
+                return widget;
+              }
+          );
+        }
         return MaterialPageRoute(
-            builder: (context) {
-              return widget;
-            }
+              builder: (context) {
+            return widget;
+          }
         );
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
           builder: (context) {
-            return _pageMenu;
+            return pageMenu;
           }
         );
       }

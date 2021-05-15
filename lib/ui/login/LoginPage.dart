@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hits_app/main.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
@@ -36,7 +37,10 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: ElevatedButton(
           child: Text("Sign in with Google"),
-          onPressed: _signInWithGoogle,
+          onPressed: () async {
+            await _signInWithGoogle();
+            Navigator.pushNamedAndRemoveUntil(context, AUTH_PAGE, (_) => false);
+          }
         ),
       ),
     );

@@ -1,11 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../main.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
-  void _logOutWithGoogle() async {
-    FirebaseAuth.instance.signOut();
+  void _logOutWithGoogle(BuildContext context) async {
+    FirebaseAuth.instance.userChanges().listen((user) {
+      if (user == null) {
+        Navigator.pushNamedAndRemoveUntil(context, AUTH_PAGE, (_) => false);
+      }
+    });
+    await GoogleSignIn().signOut();
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -24,8 +33,7 @@ class ProfilePage extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    _logOutWithGoogle();
-                    Navigator.pushNamed(context, "/");
+                    _logOutWithGoogle(context);
                   },
                   child: Text(
                     "Log out"

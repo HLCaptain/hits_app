@@ -3,7 +3,8 @@ import 'package:hits_app/ui/music_player/MusicPlayer.dart';
 import 'package:hits_app/ui/playlists/playlists.dart';
 import 'package:hits_app/ui/tracks/content/TrackListContent.dart';
 import 'package:hits_app/ui/tracks/TrackList.dart';
-import 'package:hits_app/ui/home/HomePage.dart';
+
+import '../../main.dart';
 
 class PageMenu extends StatefulWidget {
   const PageMenu({Key? key}) : super(key: key);

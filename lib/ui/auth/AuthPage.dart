@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
-import 'package:hits_app/ui/home/home_page.dart';
+import 'package:hits_app/main.dart';
 import 'package:hits_app/ui/login/LoginPage.dart';
 
 class AuthPage extends StatelessWidget {
@@ -14,7 +14,9 @@ class AuthPage extends StatelessWidget {
         conditionBuilder: (context) {
           return FirebaseAuth.instance.currentUser != null;
         },
-        widgetBuilder: (context) => HomePage(),
+        widgetBuilder: (context) => pageMenu,
         fallbackBuilder: (context) => LoginPage());
   }
+
+
 }

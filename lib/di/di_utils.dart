@@ -6,8 +6,8 @@ import 'package:hits_app/data/network/dio_napster_service.dart';
 import 'package:hits_app/data/network/napster_api.dart';
 import 'package:hits_app/data/network/track_network_data_source.dart';
 import 'package:hits_app/domain/interactor/track_interactor.dart';
-import 'package:hits_app/ui/tracks/track_list_bloc.dart';
-import 'package:hits_app/ui/music_player/music_player_bloc.dart';
+import 'package:hits_app/ui/tracks/TrackListBloc.dart';
+import 'package:hits_app/ui/music_player/MusicPlayerBloc.dart';
 
 final injector = GetIt.instance;
 
