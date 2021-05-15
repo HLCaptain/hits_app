@@ -38,6 +38,7 @@ class TrackDiskDataSource {
   }
 }
 
+// todo: swap to FirestoreTrack
 extension on FloorTrack {
   Track toDomainModel() {
     return Track(
@@ -60,6 +61,7 @@ extension on FloorTrack {
   }
 }
 
+// todo: swap to FirestoreTrack
 extension on Track {
   FloorTrack toDatabaseModel() {
     return FloorTrack(

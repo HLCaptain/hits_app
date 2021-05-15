@@ -39,4 +39,10 @@ class FirestoreTrack {
     this.isStreamable,
     this.imagePath,
   );
+
+  static const fromJsonFactory = _$FirestoreTrackFromJson;
+
+  factory FirestoreTrack.fromJson(Map<String, dynamic> json) => _$FirestoreTrackFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FirestoreTrackToJson(this);
 }
