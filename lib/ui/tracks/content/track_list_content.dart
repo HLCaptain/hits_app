@@ -47,6 +47,7 @@ class _TrackListContentState extends State<TrackListContent> {
           return _refreshCompleter.future;
         },
         child: ListView.builder(
+          padding: EdgeInsets.zero,
           itemCount: state.tracks.length,
           itemBuilder: (context, index) {
             final item = state.tracks[index];

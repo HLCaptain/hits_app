@@ -36,8 +36,6 @@ class _TrackListPageState extends State<TrackListPage>
         }
       },
       home: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
         body: BlocProvider(
           create: (context) => injector<TrackListBloc>(),
           child: BlocListener<TrackListBloc, TrackListState>(
