@@ -15,10 +15,8 @@ class FirestoreTrackDao extends TrackDao {
   }
 
   @override
-  Future<List<FirestoreTrack>> getLikedTracks() {
-    if (!_firestoreService.userExists()) {
-      _firestoreService.addUser();
-    }
+  Future<List<FirestoreTrack>> getLikedTracks() async {
+    _firestoreService.addUserIfNeeded();
     return _firestoreService.getLikedTracks().first;
   }
 
@@ -45,6 +43,11 @@ class FirestoreTrackDao extends TrackDao {
     tracks.forEach((track) {
       _firestoreService.setTrack(track);
     });
+  }
+
+  @override
+  Future<void> deleteTrack(String id) {
+    return _firestoreService.deleteTrack(id);
   }
 
 }
@@ -91,6 +94,7 @@ extension on Track {
       previewURL: this.previewURL ?? "",
       isStreamable: this.isStreamable ?? false,
       imagePath: this.imagePath ?? "",
+      insertDate: DateTime.now()
     );
   }
 }

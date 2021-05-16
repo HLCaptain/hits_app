@@ -39,13 +39,20 @@ class FirestoreService {
         .catchError((error) => print("Failed to delete track: $error"));
   }
 
-  Future<void> addUser() {
+  Future<void> addUserIfNeeded() {
     return FirebaseFirestore.instance
         .collection("users")
-        .add({
-          "uid": FirebaseAuth.instance.currentUser!.uid,
-        }).then((value) => print("User added"))
-        .catchError((error) => print("Failed to add user: $error"));
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+          if (value.exists) {
+            FirebaseFirestore.instance
+                .collection("users")
+                .add({"uid": FirebaseAuth.instance.currentUser!.uid,})
+                .then((value) => print("User added"))
+                .catchError((error) => print("Failed to add user: $error"));
+          }
+    });
   }
 
   Future<void> deleteLikedTracks() async {
@@ -62,15 +69,5 @@ class FirestoreService {
           .doc(doc.id)
           .delete()
      ));
-  }
-
-  bool userExists() {
-    bool exists = false;
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((value) => exists = value.exists);
-    return exists;
   }
 }

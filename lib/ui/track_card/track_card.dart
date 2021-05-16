@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hits_app/domain/model/track.dart';
+import 'package:hits_app/main.dart';
 
 
 class TrackCard extends StatelessWidget {
@@ -55,14 +56,24 @@ class TrackCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.chevron_right,
-                size: 20,
+              IconButton(
+                iconSize: 12,
+                visualDensity: VisualDensity.compact,
+                constraints: BoxConstraints.tight(Size(40,40)),
+
+                icon: Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                ),
+                onPressed: () {
+                  selectedTrack = track;
+                  Navigator.pushNamed(
+                    context,
+                    MUSIC_PLAYER_PAGE,
+                    arguments: track.id,
+                  );
+                },
               ),
-              // Icon(
-              //   Icons.access_time_rounded,
-              //   size: 15,
-              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 4.0),
                 child: Text(

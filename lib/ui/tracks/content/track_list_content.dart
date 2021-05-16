@@ -2,12 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hits_app/ui/track_card/TrackCard.dart';
+import 'package:hits_app/data/disk/track_disk_data_source.dart';
+import 'package:hits_app/di/di_utils.dart';
+import 'package:hits_app/domain/model/track.dart';
+import 'package:hits_app/main.dart';
+import 'package:hits_app/ui/playlists/playlists_bloc.dart';
+import 'package:hits_app/ui/playlists/playlists_event.dart' as PlaylistEvent;
+import 'package:hits_app/ui/track_card/track_card.dart';
 
-import '../../../main.dart';
-import '../TrackListBloc.dart';
-import '../TrackListEvent.dart';
-import '../TrackListState.dart';
+import '../track_list_bloc.dart';
+import '../track_list_event.dart';
+import '../track_list_state.dart';
 
 String currentTrack = "";
 
@@ -53,11 +58,23 @@ class _TrackListContentState extends State<TrackListContent> {
             final track = state.tracks[index];
             return InkWell(
               onTap: () {
-                currentTrack = track.id!;
-                Navigator.pushNamed(
-                  context,
-                  MUSIC_PLAYER_PAGE,
-                  arguments: track.id,
+                // todo: PLAY SONG
+                print("long press detected on ${track.name}!");
+                selectedTrack = track;
+              },
+              onDoubleTap: () {
+                // todo: ADD SONG TO LIKED SONGS
+                print("double tap detected on ${track.name}!");
+                injector<TrackDiskDataSource>().saveTracks(List<Track>.filled(1, track));
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          "${track.name} has been added to liked tracks!",
+                          style: Theme.of(context).textTheme.bodyText1
+                      ),
+                      duration: Duration(milliseconds: 1200),
+                      backgroundColor: Theme.of(context).backgroundColor,
+                    )
                 );
               },
               child: TrackCard(track: track),

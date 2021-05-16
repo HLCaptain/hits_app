@@ -41,22 +41,10 @@ dependencies:
   # Doesn't work in web...
   # cached_network_image: ^3.0.0
 
-  # Disc
-  floor: ^1.0.1
-
   # GOOGLE
   firebase_core: ^1.1.0
   cloud_firestore: ^2.0.0
   firebase_crashlytics: ^2.0.2
-
-  # Path handling
-  path_provider: ^2.0.1
-  path:
-  url_launcher: ^6.0.3
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
 
   # Conditional rendering for login screens, etc.
   flutter_conditional_rendering: ^2.0.0
@@ -71,9 +59,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.12.2
   json_serializable: ^4.1.1
-  floor_generator: ^1.0.1
   retrofit_generator: 2.0.0-beta3
-  uuid: ^3.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

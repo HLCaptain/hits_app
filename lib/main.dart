@@ -1,10 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hits_app/ui/auth/AuthPage.dart';
-import 'package:hits_app/ui/menus/PageMenu.dart';
-import 'package:hits_app/ui/profile/ProfilePage.dart';
+import 'package:hits_app/ui/auth/auth_page.dart';
+import 'package:hits_app/ui/menus/page_menu.dart';
+import 'package:hits_app/ui/profile/profile_page.dart';
 
 import 'di/di_utils.dart';
+import 'domain/model/track.dart';
+
+// For testing purposes
+// flutter run -d chrome --web-hostname localhost --web-port 7357
+
 HitsApp hitsApp = HitsApp();
 void main() async {
   initDependencies();
@@ -12,6 +17,8 @@ void main() async {
   await Firebase.initializeApp();
   runApp(hitsApp);
 }
+
+Track? selectedTrack;
 
 const MENU_PAGE = "/menu";
 const AUTH_PAGE = "/auth";

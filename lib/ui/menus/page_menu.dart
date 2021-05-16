@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hits_app/ui/music_player/MusicPlayer.dart';
+import 'package:hits_app/ui/music_player/music_player.dart';
 import 'package:hits_app/ui/playlists/playlists.dart';
-import 'package:hits_app/ui/tracks/content/TrackListContent.dart';
-import 'package:hits_app/ui/tracks/TrackList.dart';
+import 'package:hits_app/ui/tracks/content/track_list_content.dart';
+import 'package:hits_app/ui/tracks/track_list.dart';
 
 import '../../main.dart';
 
@@ -23,7 +23,7 @@ class _PageMenuState extends State<PageMenu> {
   List<Widget> _screens = [
     TrackListPage(key: GlobalKey()),
     PlaylistsPage(key: GlobalKey()),
-    MusicPlayer(currentTrack, key: GlobalKey()),
+    MusicPlayer(key: GlobalKey()),
   ];
 
   _PageMenuState() {
@@ -54,6 +54,8 @@ class _PageMenuState extends State<PageMenu> {
     return Scaffold(
       // extendBodyBehindAppBar: true,
       appBar: AppBar(
+        centerTitle: true,
+        title: Text("Hits"),
         actions: [
           IconButton(
               onPressed: () {

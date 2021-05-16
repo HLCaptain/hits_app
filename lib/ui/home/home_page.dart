@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hits_app/main.dart';
-import 'package:hits_app/ui/profile/ProfilePage.dart';
+import 'package:hits_app/ui/profile/profile_page.dart';
 
 
 const DEFAULT_PAGE = "/";

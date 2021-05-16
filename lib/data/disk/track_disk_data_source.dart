@@ -39,35 +39,15 @@ class TrackDiskDataSource {
   }
 
   Future<void> saveTracks(List<Track> tracks) async {
-    await _trackDao.deleteAllTracks();
     _trackDao.insertTracks(
       tracks.map(
             (track) => track.toDatabaseModel(),
       ).toList(),
     );
   }
-}
 
-// todo: swap to FirestoreTrack
-extension on FirestoreTrack {
-  Track toDomainModel() {
-    return Track(
-        type: this.type,
-        id: this.id,
-        disc: this.disc,
-        href: this.href,
-        playbackSeconds: this.playbackSeconds,
-        isExplicit: this.isExplicit,
-        name: this.name,
-        isrc: isrc,
-        shortcut: this.shortcut,
-        artistName: this.artistName,
-        albumName: this.albumName,
-        albumId: this.albumId,
-        previewURL: this.previewURL,
-        isStreamable: this.isStreamable,
-        imagePath: this.imagePath,
-    );
+  Future<void> deleteTracks(List<Track> tracks) async {
+    tracks.forEach((track) {_trackDao.deleteTrack(track.id!);});
   }
 }
 
@@ -90,6 +70,7 @@ extension on Track {
         previewURL: this.previewURL ?? "",
         isStreamable: this.isStreamable ?? false,
         imagePath: this.imagePath ?? "",
+        insertDate: DateTime.now()
     );
   }
 }

@@ -23,6 +23,7 @@ FirestoreTrack _$FirestoreTrackFromJson(Map<String, dynamic> json) {
     previewURL: json['previewURL'] as String,
     isStreamable: json['isStreamable'] as bool,
     imagePath: json['imagePath'] as String,
+    insertDate: DateTime.parse(json['insertDate'] as String),
   );
 }
 
@@ -43,4 +44,5 @@ Map<String, dynamic> _$FirestoreTrackToJson(FirestoreTrack instance) =>
       'previewURL': instance.previewURL,
       'isStreamable': instance.isStreamable,
       'imagePath': instance.imagePath,
+      'insertDate': instance.insertDate.toIso8601String(),
     };

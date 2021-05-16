@@ -11,4 +11,6 @@ abstract class TrackDao {
   Future<void> insertTracks(List<FirestoreTrack> tracks);
 
   Future<void> deleteAllTracks();
+
+  Future<void> deleteTrack(String id);
 }

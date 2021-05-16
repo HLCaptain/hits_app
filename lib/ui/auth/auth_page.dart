@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:hits_app/main.dart';
-import 'package:hits_app/ui/login/LoginPage.dart';
+import 'package:hits_app/ui/login/login_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);

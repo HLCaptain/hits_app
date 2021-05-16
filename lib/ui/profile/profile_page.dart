@@ -25,22 +25,40 @@ class ProfilePage extends StatelessWidget {
         title: Text("Profile data"),
       ),
       body: Center(
-        child: Container(
-          child: Column(
-            children: [
-              CircleAvatar(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircleAvatar(
                 backgroundImage: NetworkImage(user!.photoURL!),
+                radius: 64,
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    _logOutWithGoogle(context);
-                  },
-                  child: Text(
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                  "Name: " + user.displayName!
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                  "Email: " + user.email!
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  _logOutWithGoogle(context);
+                },
+                child: Text(
                     "Log out"
-                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+
+          ],
         ),
       ),
     );

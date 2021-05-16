@@ -17,12 +17,17 @@ class TrackInteractor {
   }
 
   Future<void> refreshTopTracks() async {
-    debugPrint("Downloading tracks from the network");
+    debugPrint("Downloading top tracks from the network");
     final tracks = await _trackNetworkDataSource.getTopTracks();
   }
 
   Future<Track?> getTrackById(String id) async {
-    print("Getting track $id from disk");
+    print("Downloading track $id from network");
     return await _trackNetworkDataSource.getTrack(id);
+  }
+
+  Future<List<Track>?> getLikedTracks() async {
+    print("Getting liked tracks from network");
+    return await _trackDiskDataSource.getLikedTracks();
   }
 }

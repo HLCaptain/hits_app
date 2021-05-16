@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:hits_app/domain/model/track.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'firestore_track.g.dart';
@@ -21,6 +22,7 @@ class FirestoreTrack {
   final String previewURL;
   final bool isStreamable;
   final String imagePath;
+  final DateTime insertDate;
 
   FirestoreTrack({
     required this.type,
@@ -38,6 +40,7 @@ class FirestoreTrack {
     required this.previewURL,
     required this.isStreamable,
     required this.imagePath,
+    required this.insertDate
   });
 
   static const fromJsonFactory = _$FirestoreTrackFromJson;
@@ -45,4 +48,24 @@ class FirestoreTrack {
   factory FirestoreTrack.fromJson(Map<String, dynamic> json) => _$FirestoreTrackFromJson(json);
 
   Map<String, dynamic> toJson() => _$FirestoreTrackToJson(this);
+
+  Track toDomainModel() {
+    return Track(
+      type: this.type,
+      id: this.id,
+      disc: this.disc,
+      href: this.href,
+      playbackSeconds: this.playbackSeconds,
+      isExplicit: this.isExplicit,
+      name: this.name,
+      isrc: isrc,
+      shortcut: this.shortcut,
+      artistName: this.artistName,
+      albumName: this.albumName,
+      albumId: this.albumId,
+      previewURL: this.previewURL,
+      isStreamable: this.isStreamable,
+      imagePath: this.imagePath,
+    );
+  }
 }
