@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hits_app/domain/model/track.dart';
 
@@ -25,11 +24,7 @@ class TrackCard extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               child: track.imagePath != null
-                  ? CachedNetworkImage(
-                imageUrl: track.imagePath!,
-                height: 72,
-                width: 72,
-              )
+                  ? Image.network(track.imagePath!, height: 80, width: 80,)
                   : Icon(
                 Icons.image,
                 size: 80,

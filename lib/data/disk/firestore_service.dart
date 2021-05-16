@@ -5,11 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hits_app/data/disk/model/firestore_track.dart';
 
 class FirestoreService {
-  FirebaseFirestore _db = FirebaseFirestore.instance;
-
-  Stream<List<FirestoreTrack>> getFavouriteTracks() {
-    return _db
-        .collection("users/" + FirebaseAuth.instance.currentUser!.uid)
+  Stream<List<FirestoreTrack>> getLikedTracks() {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("liked_tracks")
         .snapshots()
         .map((snapshot) => snapshot.docs
         .map((doc) => FirestoreTrack.fromJson(doc.data()))
@@ -18,16 +18,59 @@ class FirestoreService {
 
   Future<void> setTrack(FirestoreTrack track) {
     var options = SetOptions(merge: true);
-    return _db
-        .collection("users/" + FirebaseAuth.instance.currentUser!.uid)
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("liked_tracks")
         .doc(track.id)
-        .set(track.toJson(), options);
+        .set(track.toJson(), options)
+        .then((value) => print("Track set"))
+        .catchError((error) => print("Failed to set track: $error"));
   }
 
   Future<void> deleteTrack(String trackId) {
-    return _db
-        .collection("users/" + FirebaseAuth.instance.currentUser!.uid)
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("liked_tracks")
         .doc(trackId)
-        .delete();
+        .delete()
+        .then((value) => print("Track deleted"))
+        .catchError((error) => print("Failed to delete track: $error"));
+  }
+
+  Future<void> addUser() {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .add({
+          "uid": FirebaseAuth.instance.currentUser!.uid,
+        }).then((value) => print("User added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+
+  Future<void> deleteLikedTracks() async {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("liked_tracks")
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("liked_tracks")
+          .doc(doc.id)
+          .delete()
+     ));
+  }
+
+  bool userExists() {
+    bool exists = false;
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) => exists = value.exists);
+    return exists;
   }
 }

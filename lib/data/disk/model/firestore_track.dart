@@ -22,23 +22,23 @@ class FirestoreTrack {
   final bool isStreamable;
   final String imagePath;
 
-  FirestoreTrack(
-    this.type,
-    this.id,
-    this.disc,
-    this.href,
-    this.playbackSeconds,
-    this.isExplicit,
-    this.name,
-    this.isrc,
-    this.shortcut,
-    this.artistName,
-    this.albumName,
-    this.albumId,
-    this.previewURL,
-    this.isStreamable,
-    this.imagePath,
-  );
+  FirestoreTrack({
+    required this.type,
+    required this.id,
+    required this.disc,
+    required this.href,
+    required this.playbackSeconds,
+    required this.isExplicit,
+    required this.name,
+    required this.isrc,
+    required this.shortcut,
+    required this.artistName,
+    required this.albumName,
+    required this.albumId,
+    required this.previewURL,
+    required this.isStreamable,
+    required this.imagePath,
+  });
 
   static const fromJsonFactory = _$FirestoreTrackFromJson;
 

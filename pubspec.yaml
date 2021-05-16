@@ -35,9 +35,11 @@ dependencies:
 
   # Network
   json_annotation: ^4.0.1
-  cached_network_image: ^3.0.0
   dio: ^4.0.0
   retrofit: 2.0.0-beta1
+
+  # Doesn't work in web...
+  # cached_network_image: ^3.0.0
 
   # Disc
   floor: ^1.0.1

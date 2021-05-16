@@ -1,12 +1,14 @@
-import 'model/floor_track.dart';
+import 'package:hits_app/data/disk/model/firestore_track.dart';
 
 abstract class TrackDao {
 
-  Future<List<FloorTrack>> getAllTracks();
+  Future<List<FirestoreTrack>> getTopTracks();
 
-  Future<FloorTrack?> getTrack(String id);
+  Future<List<FirestoreTrack>> getLikedTracks();
 
-  Future<void> insertTracks(List<FloorTrack> tracks);
+  Future<FirestoreTrack?> getTrack(String id);
+
+  Future<void> insertTracks(List<FirestoreTrack> tracks);
 
   Future<void> deleteAllTracks();
 }

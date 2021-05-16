@@ -22,14 +22,14 @@ class TrackListBloc extends Bloc<TrackListEvent, TrackListState> {
   Stream<TrackListState> _mapLoadTracksToState() async* {
     try {
       print("Refreshing Tracks");
-      await _trackInteractor.refreshTracks();
+      await _trackInteractor.refreshTopTracks();
     } on Exception catch (e) {
       print("Refreshing Tracks failed, reason: ${e.toString()}");
       yield Error(tracks: []);
     }
 
     print("Getting Tracks from DB");
-    final tracks = await _trackInteractor.getAllTracks();
+    final tracks = await _trackInteractor.getTopTracks();
 
     print("Tracks refreshed, sending Content state with Track list");
     yield ContentReady(tracks: tracks);
@@ -44,7 +44,7 @@ class TrackListBloc extends Bloc<TrackListEvent, TrackListState> {
 
         try {
           print("Refreshing Tracks");
-          await _trackInteractor.refreshTracks();
+          await _trackInteractor.refreshTopTracks();
         } catch (e) {
           print(
               "Refreshing Tracks failed, reason: ${e.toString()}, sending Error state");
@@ -54,7 +54,7 @@ class TrackListBloc extends Bloc<TrackListEvent, TrackListState> {
     }
 
     print("Getting Tracks from DB");
-    final tracks = await _trackInteractor.getAllTracks();
+    final tracks = await _trackInteractor.getTopTracks();
 
     yield ContentReady(tracks: tracks);
   }

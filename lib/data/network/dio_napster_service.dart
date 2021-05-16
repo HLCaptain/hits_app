@@ -29,4 +29,8 @@ abstract class NapsterService implements NapsterApi {
   @override
   @GET("/v2.2/tracks/top?limit=200")
   Future<HttpResponse<NetworkReply>> getTopTracks();
+
+  @override
+  @GET("/v2.2/tracks/{id}")
+  Future<HttpResponse<NetworkReply>> getTrack(@Path("id") String id);
 }

@@ -1,16 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hits_app/data/disk/track_dao.dart';
 import 'package:hits_app/domain/model/track.dart';
-import 'model/floor_track.dart';
+import 'model/firestore_track.dart';
 
 class TrackDiskDataSource {
   final TrackDao _trackDao;
 
   TrackDiskDataSource(this._trackDao);
 
-  Future<List<Track>?> getAllTracks() async {
+  Future<List<Track>?> getTopTracks() async {
     try {
-      final tracksFromDb = await _trackDao.getAllTracks();
+      final tracksFromDb = await _trackDao.getTopTracks();
+      return tracksFromDb.map(
+            (track) => track.toDomainModel(),
+      ).toList();
+    } catch (err) {
+      return null;
+    }
+  }
+
+  Future<List<Track>?> getLikedTracks() async {
+    try {
+      final tracksFromDb = await _trackDao.getLikedTracks();
       return tracksFromDb.map(
             (track) => track.toDomainModel(),
       ).toList();
@@ -39,7 +49,7 @@ class TrackDiskDataSource {
 }
 
 // todo: swap to FirestoreTrack
-extension on FloorTrack {
+extension on FirestoreTrack {
   Track toDomainModel() {
     return Track(
         type: this.type,
@@ -63,23 +73,23 @@ extension on FloorTrack {
 
 // todo: swap to FirestoreTrack
 extension on Track {
-  FloorTrack toDatabaseModel() {
-    return FloorTrack(
-        type: this.type,
-        id: this.id,
-        disc: this.disc,
+  FirestoreTrack toDatabaseModel() {
+    return FirestoreTrack(
+        type: this.type ?? "",
+        id: this.id ?? "",
+        disc: this.disc ?? 0,
         href: this.href,
-        playbackSeconds: this.playbackSeconds,
-        isExplicit: this.isExplicit,
-        name: this.name,
+        playbackSeconds: this.playbackSeconds ?? 0,
+        isExplicit: this.isExplicit ?? false,
+        name: this.name ?? "",
         isrc: isrc,
-        shortcut: this.shortcut,
-        artistName: this.artistName,
-        albumName: this.albumName,
-        albumId: this.albumId,
-        previewURL: this.previewURL,
-        isStreamable: this.isStreamable,
-        imagePath: this.imagePath,
+        shortcut: this.shortcut ?? "",
+        artistName: this.artistName ?? "",
+        albumName: this.albumName ?? "",
+        albumId: this.albumId ?? "",
+        previewURL: this.previewURL ?? "",
+        isStreamable: this.isStreamable ?? false,
+        imagePath: this.imagePath ?? "",
     );
   }
 }

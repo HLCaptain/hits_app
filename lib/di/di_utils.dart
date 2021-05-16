@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:hits_app/data/disk/floor_database.dart';
+import 'package:hits_app/data/disk/firestore_track_dao.dart';
 import 'package:hits_app/data/disk/track_dao.dart';
 import 'package:hits_app/data/disk/track_disk_data_source.dart';
 import 'package:hits_app/data/network/dio_napster_service.dart';
@@ -18,12 +18,7 @@ void initDependencies() {
     TrackNetworkDataSource(injector<NapsterApi>()),
   );
 
-  injector.registerSingletonAsync<TrackDao>(() async {
-    final database = await $FloorFloorTrackDatabase
-        .databaseBuilder("napster_database.db")
-        .build();
-    return database.trackDao;
-  });
+  injector.registerSingletonAsync<TrackDao>(() async => FirestoreTrackDao());
 
   injector.registerSingletonAsync(
     () async {

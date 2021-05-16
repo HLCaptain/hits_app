@@ -5,5 +5,5 @@ import 'model/network_reply.dart';
 
 abstract class NapsterApi {
   Future<HttpResponse<NetworkReply>> getTopTracks();
-  //Future<HttpResponse<NetworkReply>> getStaffPicks();
+  Future<HttpResponse<NetworkReply>> getTrack(String id);
 }

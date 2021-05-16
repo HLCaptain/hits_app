@@ -18,6 +18,16 @@ class TrackNetworkDataSource {
 
     return networkTracks.map((track) => track.toDomainModel()).toList();
   }
+
+  Future<Track?> getTrack(String id) async {
+    final networkResponse = await _napsterApi.getTrack(id);
+
+    if (networkResponse.response.statusCode != 200) return null;
+
+    final networkTracks = networkResponse.data.tracks;
+
+    return networkTracks.map((track) => track.toDomainModel()).first;
+  }
 }
 
 extension on NetworkTrack {

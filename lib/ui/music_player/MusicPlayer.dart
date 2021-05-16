@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hits_app/di/di_utils.dart';
 import 'package:hits_app/ui/music_player/MusicPlayerBloc.dart';
@@ -43,10 +41,7 @@ class MusicPlayer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       track.imagePath != null
-                          ? CachedNetworkImage(
-                        imageUrl: track.imagePath!,
-                        height: 350,
-                      )
+                          ? Image.network(track.imagePath!, height: 350, width: 350,)
                           : Icon(
                         Icons.image,
                         size: 350,

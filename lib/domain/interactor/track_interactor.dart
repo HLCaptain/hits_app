@@ -12,20 +12,17 @@ class TrackInteractor {
       this._trackNetworkDataSource,
       );
 
-  Future<List<Track>> getAllTracks() async {
-    return await _trackDiskDataSource.getAllTracks() ?? [];
+  Future<List<Track>> getTopTracks() async {
+    return await _trackNetworkDataSource.getTopTracks() ?? [];
   }
 
-  Future<void> refreshTracks() async {
+  Future<void> refreshTopTracks() async {
     debugPrint("Downloading tracks from the network");
     final tracks = await _trackNetworkDataSource.getTopTracks();
-
-    debugPrint("Saving downloaded tracks to disk");
-    await _trackDiskDataSource.saveTracks(tracks ?? []);
   }
 
-  Future<Track?> getTrackById(String id) async{
+  Future<Track?> getTrackById(String id) async {
     print("Getting track $id from disk");
-    return await _trackDiskDataSource.getTrack(id);
+    return await _trackNetworkDataSource.getTrack(id);
   }
 }
